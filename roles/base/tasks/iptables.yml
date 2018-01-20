@@ -1,0 +1,7 @@
+---
+- name: Basic firewall restricting incoming connections
+  block:
+  - iptables: ip_version={{ ip_version }} chain=INPUT ctstate=ESTABLISHED,RELATED jump=ACCEPT
+  - iptables: ip_version={{ ip_version }} chain=INPUT policy=DROP
+  - iptables: ip_version={{ ip_version }} chain=FORWARD policy=DROP
+  - iptables: ip_version={{ ip_version }} chain=OUTPUT policy=ACCEPT

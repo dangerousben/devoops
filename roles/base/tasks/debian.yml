@@ -1,0 +1,28 @@
+---
+- name: Update apt cache and install aptitude
+  apt:
+    update_cache: yes
+    name: aptitude
+    state: latest
+
+- name: Apt upgrade, autoclean and autoremove
+  apt:
+    upgrade: safe
+    autoclean: yes
+    autoremove: yes
+
+- name: Install other debian-specific packages
+  apt: name={{ item }} state=latest
+  with_items:
+  - iptables
+  - iptables-persistent
+
+- name: Firewall setup
+  block:
+  - include_tasks: iptables.yml
+    vars:
+      ip_version: "{{ item }}"
+    with_items:
+    - ipv4
+    - ipv6
+  - command: netfilter-persistent save

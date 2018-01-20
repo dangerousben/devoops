@@ -1,0 +1,19 @@
+---
+- include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Harden sshd config
+  block:
+  - lineinfile: dest=/etc/ssh/sshd_config regexp="^#?ChallengeResponseAuthentication" line="ChallengeResponseAuthentication no"
+    notify: restart sshd
+  - lineinfile: dest=/etc/ssh/sshd_config regexp="^#?PasswordAuthentication" line="PasswordAuthentication no"
+    notify: restart sshd
+  - lineinfile: dest=/etc/ssh/sshd_config regexp="^#?PermitEmptyPasswords" line="PermitEmptyPasswords no"
+    notify: restart sshd
+  - lineinfile: dest=/etc/ssh/sshd_config regexp="^#?PermitRootLogin" line="PermitRootLogin no"
+    notify: restart sshd
+
+- name: Install user ssh key
+  authorized_key:
+    user: "{{ my_username }}"
+    key: "{{ lookup('file', '/home/{{ my_username }}/.ssh/id_rsa.pub') }}"

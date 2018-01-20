@@ -1,0 +1,17 @@
+---
+- include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+- name: Install standard packages
+  package: name={{ item }} state=latest
+  with_items:
+  - bash
+  - git
+  - less
+  - ntp
+
+- name: Set up user
+  user:
+    name: "{{ my_username }}"
+    comment: "Ben Spencer"
+    shell: /bin/bash
+    groups: sudo

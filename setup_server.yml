@@ -1,0 +1,8 @@
+---
+- hosts: server
+  vars:
+    my_username: ben
+  roles:
+  - role: base
+  - role: server
+  - role: irc_client

@@ -1,0 +1,15 @@
+---
+- package: name = {{ item }} state=latest
+  with_items:
+  - irssi
+  - screen
+- file:
+    path: "/home/{{ my_username }}/.irssi"
+    state: directory
+    owner: "{{ my_username }}"
+    group: "{{ my_username }}"
+- copy:
+    src: config
+    dest: "/home/{{ my_username }}/.irssi/config"
+    owner: "{{ my_username }}"
+    group: "{{ my_username }}"
