@@ -6,3 +6,4 @@
   - role: base
   - role: server
   - role: irc_client
+  # - role: vpn

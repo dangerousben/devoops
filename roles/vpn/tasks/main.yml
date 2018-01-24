@@ -1,0 +1,59 @@
+---
+- name: Install openvpn
+  package: name={{ item }} state=latest
+  with_items:
+  - easy-rsa
+  - openvpn
+
+- name: Create CA dir
+  shell: |
+    make-cadir {{ ca_dir }}
+    cd {{ ca_dir }}
+    ln -s openssl-1.0.0.cnf openssl.cnf  # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=851059
+    . ./vars
+    ./clean-all
+  args:
+    creates: "{{ ca_dir }}"
+
+- name: Generate CA
+  shell: |
+    . ./vars
+    ./build-ca --batch
+  args:
+    chdir: "{{ ca_dir }}"
+    creates: "{{ ca_dir }}/keys/ca.key"
+
+- name: Generate server key
+  shell: |
+    . ./vars
+    ./build-key-server server --batch
+  args:
+    chdir: "{{ ca_dir }}"
+    creates: "{{ ca_dir }}/keys/server.key"
+
+- name: Generate server key
+  shell: |
+    . ./vars
+    ./build-key-server server --batch
+  args:
+    chdir: "{{ ca_dir }}"
+    creates: "{{ ca_dir }}/keys/server.key"
+
+- name: Generate DH params
+  shell: |
+    . ./vars
+    ./build-dh
+  args:
+    chdir: "{{ ca_dir }}"
+    creates: "{{ ca_dir }}/keys/dh2048.pem"
+
+- name: Generate tls-auth key
+  command: openvpn --genkey --secret keys/ta.key
+  args:
+    chdir: "{{ ca_dir }}"
+    creates: "{{ ca_dir }}/keys/ta.key"
+
+- name: Copy certs and keys to openvpn dir
+  command: cp ca.crt server.crt server.key ta.key dh2048.pem /etc/openvpn
+  args:
+    chdir: "{{ ca_dir }}/keys"
