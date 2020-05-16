@@ -17,3 +17,6 @@
   authorized_key:
     user: "{{ my_username }}"
     key: "{{ lookup('file', '/home/{{ my_username }}/.ssh/id_rsa.pub') }}"
+
+- name: Install monit
+  package: name=monit state=latest
