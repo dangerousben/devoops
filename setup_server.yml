@@ -4,6 +4,9 @@
     my_username: ben
   roles:
   - role: base
+    tags: base
   - role: server
+    tags: server
   - role: irc_client
+    tags: irc_client
   # - role: vpn
