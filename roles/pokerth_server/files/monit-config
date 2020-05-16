@@ -1,0 +1,4 @@
+check process pokerth_server with pidfile /var/run/pokerth_server.pid
+  start program = "/etc/init.d/pokerth_server start"
+  stop  program = "/etc/init.d/pokerth_server stop"
+  if 5 restarts within 5 cycles then timeout

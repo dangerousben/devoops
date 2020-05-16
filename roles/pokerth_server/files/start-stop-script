@@ -1,0 +1,12 @@
+#!/bin/bash
+
+case $1 in
+    start)
+	sudo -H -u _pokerth /usr/games/pokerth_server
+	sleep 2
+	pgrep -n pokerth_server > /var/run/pokerth_server.pid ;;
+    stop)
+	kill $(cat /var/run/pokerth_server.pid) ;;
+    *)
+	echo "Usage: pokerth_server {start|stop}" ;;
+esac

@@ -1,0 +1,17 @@
+---
+- name: Open firewall port for pokerth
+  block:
+  - iptables: chain=INPUT protocol=tcp match=tcp destination_port=7234 jump=ACCEPT
+  - command: netfilter-persistent save
+
+- name: Install init script
+  copy:
+    src: start-stop-script
+    dest: /etc/init.d/pokerth_server
+    mode: 0755
+
+- name: Install monit config
+  copy:
+    src: monit-config
+    dest: /etc/monit/conf.d/pokerth_server
+  notify: restart monit

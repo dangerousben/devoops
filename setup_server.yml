@@ -9,4 +9,6 @@
     tags: server
   - role: irc_client
     tags: irc_client
+  - role: pokerth_server
+    tags: pokerth_server
   # - role: vpn

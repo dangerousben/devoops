@@ -1,0 +1,9 @@
+---
+- include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- package: name=pokerth-server state=latest
+
+- service:
+    name: pokerth_server
+    state: started
