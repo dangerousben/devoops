@@ -12,10 +12,11 @@
     autoremove: yes
 
 - name: Install other debian-specific packages
-  apt: name={{ item }} state=latest
-  with_items:
-  - iptables
-  - iptables-persistent
+  apt:
+    name:
+    - iptables
+    - iptables-persistent
+    state: latest
 
 - name: Firewall setup
   block:

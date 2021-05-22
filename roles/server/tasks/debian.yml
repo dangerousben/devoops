@@ -5,6 +5,4 @@
   - command: netfilter-persistent save
 
 - name: Install fail2ban
-  apt: name={{ item }} state=latest
-  with_items:
-  - fail2ban
+  apt: name=fail2ban state=latest
