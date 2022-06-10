@@ -4,5 +4,10 @@
   - iptables: chain=INPUT protocol=tcp match=tcp destination_port=ssh jump=ACCEPT
   - command: netfilter-persistent save
 
+- name: Allow incoming pings from bitfolk
+  block:
+  - iptables: chain=INPUT protocol=icmp icmp_type=echo-request source=85.119.80.0/21 jump=ACCEPT
+  - command: netfilter-persistent save
+
 - name: Install fail2ban
   apt: name=fail2ban state=latest
