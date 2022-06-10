@@ -1,0 +1,2 @@
+- use a handler to call netfilter-persistent save (needs to work across roles, attempts so far have ended in frustration)
+- set up auto nickserv login for irc networks
