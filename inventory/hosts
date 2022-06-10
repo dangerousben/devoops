@@ -1,1 +1,1 @@
-server ansible_host=51.15.198.140 ansible_user=ansible ansible_become=true os=debian
+server ansible_host=server.justworks.xyz ansible_user=ansible ansible_become=true os=debian
