@@ -13,7 +13,7 @@ useradd -m $local_user
 mkdir /home/$local_user/.ssh
 apt-get update
 apt-get -y install sudo
-sed -i 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers
+echo -e "%sudo\tALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/sudo-nopasswd
 adduser $local_user sudo
 EOF
 
