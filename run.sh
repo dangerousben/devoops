@@ -1,3 +1,3 @@
 #!/bin/sh
 
-ansible-playbook --ask-vault-pass -i inventory/ setup_server.yml $@
+ansible-playbook --vault-password-file .vault_password -i inventory/ setup_server.yml $@
