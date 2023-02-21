@@ -4,7 +4,7 @@
 
 - name: Harden sshd config
   block:
-  - lineinfile: dest=/etc/ssh/sshd_config regexp="^#?ChallengeResponseAuthentication" line="ChallengeResponseAuthentication no"
+  - lineinfile: dest=/etc/ssh/sshd_config regexp="^#?KbdInteractiveAuthentication" line="KbdInteractiveAuthentication no"
     notify: restart sshd
   - lineinfile: dest=/etc/ssh/sshd_config regexp="^#?PasswordAuthentication" line="PasswordAuthentication no"
     notify: restart sshd
